@@ -20,6 +20,7 @@ public class MyCustomViews extends View {
     Paint mPaint;
     Rect mRect;
     int mSquareColor;
+    int mPadding = 0;
 
     public MyCustomViews(Context context) {
         super(context);
@@ -57,14 +58,35 @@ public class MyCustomViews extends View {
 
     }
 
+    public void swapColor(){
+
+        mPaint.setColor(mPaint.getColor()==mSquareColor?Color.RED:mSquareColor);
+        postInvalidate();
+
+    }
+
+    public void customPaddingUp(int padding){
+
+        mPadding = mPadding + padding;
+        postInvalidate();
+
+    }
+
+    public void customPaddingDown(int padding){
+
+        mPadding = mPadding -  padding;
+        postInvalidate();
+
+    }
+
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        mRect.left = 0;
-        mRect.right = getWidth();
-        mRect.top = 0;
-        mRect.bottom = getHeight();
+        mRect.left = 0 + mPadding;
+        mRect.right = getWidth() - mPadding;
+        mRect.top = 0 + mPadding;
+        mRect.bottom = getHeight() - mPadding;
 
         canvas.drawRect(mRect, mPaint);
     }
