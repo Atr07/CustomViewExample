@@ -10,6 +10,7 @@
 
     <com.example123.myapplication.MyCustomViews
         android:layout_width="300dp"
-        android:layout_height="300dp" />
+        android:layout_height="300dp"
+        app:square_color="@color/colorPrimary"/>
 
 </LinearLayout>

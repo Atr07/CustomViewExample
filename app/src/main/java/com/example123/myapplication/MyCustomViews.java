@@ -5,6 +5,7 @@ package com.example123.myapplication;
  */
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -15,6 +16,11 @@ import android.view.View;
 import androidx.annotation.Nullable;
 
 public class MyCustomViews extends View {
+
+    Paint mPaint;
+    Rect mRect;
+    int mSquareColor;
+
     public MyCustomViews(Context context) {
         super(context);
         init(null);
@@ -37,20 +43,29 @@ public class MyCustomViews extends View {
 
     private void init(@Nullable AttributeSet set) {
 
+        mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mRect = new Rect();
+
+        if(set == null){
+            return;
+        }
+
+        TypedArray ta = getContext().obtainStyledAttributes(set, R.styleable.MyCustomViews);
+        mSquareColor = ta.getColor(R.styleable.MyCustomViews_square_color, Color.GREEN);
+        mPaint.setColor(mSquareColor);
+        ta.recycle();
+
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setColor(Color.MAGENTA);
-        Rect rect = new Rect();
-        rect.left = 0;
-        rect.right = getWidth();
-        rect.top = 0;
-        rect.bottom = getHeight();
+        mRect.left = 0;
+        mRect.right = getWidth();
+        mRect.top = 0;
+        mRect.bottom = getHeight();
 
-        canvas.drawRect(rect, paint);
+        canvas.drawRect(mRect, mPaint);
     }
 }
